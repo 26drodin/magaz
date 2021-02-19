@@ -1,0 +1,149 @@
+﻿@model CodeFirst.Product
+@using Microsoft.AspNet.Identity;
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2> @Html.DisplayFor(model => model.Name)</h2>
+
+<div>
+
+    <hr />
+    <div class="row">
+        <div class="col-md-8">
+            <dl class="dl-horizontal">
+
+                <dd>
+                    @{
+                        string imgsrc;
+                        if (Model.Picture != null)
+                        {
+                            var base64 = Convert.ToBase64String(Model.Picture);
+
+                            imgsrc = string.Format("data:image/png;base64,{0}", base64);
+                        }
+                        else { imgsrc = "https://pp.userapi.com/c831308/v831308450/3eb44/rasu8ictmE4.jpg"; }}
+
+                    <img src='@imgsrc' style="float:left; max-height:300px" />
+                </dd>
+            </dl>
+        </div>
+
+        <div class="col-md-4">
+            <h2>  @Html.DisplayFor(model => model.Price) Руб. </h2>
+        </div>
+
+
+
+
+
+    </div>
+    <table class="table">
+        @foreach (var item in Model.Props)
+
+        {
+            <tr>
+                <td>
+                    @item.Name
+                </td>
+
+                <td>
+                    @item.Value
+                </td>
+
+
+            </tr>
+
+
+        }
+    </table>
+    <div class="row">
+        <div class="col-md-5">
+            <h3>Наличие в магазинах</h3>
+            <table class="table">
+                @foreach (var item in ViewBag.Shops)
+                {
+                    <tr>
+                        <td>
+                            @item.Shop.Name
+                        </td>
+
+                        <td>
+                            @item.Quantity шт.
+                        </td>
+
+
+                    </tr>
+                }
+
+            </table>
+        </div>
+    </div>
+
+
+
+</div>
+<p>
+
+    @Html.ActionLink("Назад", "List",new {id=Model.Category.ID }) |
+    @if (ViewBag.Roles.Contains("employee")) { 
+    <a>@Html.ActionLink("Изменить", "Edit", new { id = Model.ID }) |</a>
+    <a>@Html.ActionLink("Добавить в магазин", "ChooseShop", "Shop", new { prod_id = Model.ID }, new { }) |</a>}
+    @if (User.Identity.IsAuthenticated) {
+    @Html.ActionLink("Добавить в корзину", "AddToCart", new { idd = Model.ID }, new { })}
+
+</p>
+
+<h3>Отзывы о товаре</h3>
+@if (Model.Reviews.Count == 0) {
+    <p>Отзывов о товаре пока нет, оставьте его первым</p>
+}
+@foreach (var item in Model.Reviews)
+{
+    <div class="row">
+        <div class="col-md-12">
+            <h4>
+                @{                 
+                    if (item.Account.Picture!=null)
+                    {
+                        var base64 = Convert.ToBase64String(item.Account.Picture);
+
+                        imgsrc = string.Format("data:image/png;base64,{0}", base64);
+                    }
+                    else { imgsrc = "https://pp.userapi.com/c831308/v831308450/3eb44/rasu8ictmE4.jpg"; }}
+                <img src='@imgsrc' style="float:left;width:50px;height:50px; margin-right:10px" />
+                @item.Account.UserName @if (item.Account.Roles.First().role == "admin") { <b style="color:orange">Администратор</b> }
+            </h4>
+    <p>
+        Оценка: @for (int i = 0; i < item.Rate; i++)
+        {<img src="http://pngimg.com/uploads/star/star_PNG41515.png " width="20" height="20" />}
+    </p>
+    <p>  @item.Text</p>
+    <hr class="reviews-hr" />
+            </div>
+    </div>
+    }
+
+    @{ if (@User.Identity.IsAuthenticated)
+        {
+            using (@Html.BeginForm("AddReview", "Product"))
+            {<div class="row" style="margin-top:20px">
+                 <div class="col-md-12">
+                     <input type="hidden" name="prod_id" value=@Model.ID />
+                     @Html.HiddenFor(model => model.ID)
+                     <input type="hidden" name="purl" value=@Request.Url.AbsoluteUri />
+
+                     <textarea name="text" placeholder="Введите текст" class="input-group-text" style="width:100%"></textarea>
+                     <p>
+                         <label>Оценка:</label>
+                         <input type="number" max="5" min="0" name="rate" class="input-group" value="0" />
+                     </p>
+                     
+                     <p>     <input type="submit" value="Оставить отзыв" class="btn"></p>
+                 </div>
+                </div> }
+        }
+        else
+        {<p>Для того чтобы оставить отзыв о товаре, войдите или зарегистрируйтесь</p> }
+    }

@@ -1,0 +1,58 @@
+﻿@model IEnumerable<CodeFirst.Shop>
+
+@{
+    ViewBag.Title = "Адреса магазинов";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Адреса магазинов</h2>
+
+<p>
+
+    @if (ViewBag.Roles.Contains("employee"))
+    {
+        @Html.ActionLink("Добавить магазин", "Create")
+    }
+
+
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Address)
+        </th>
+     
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Name)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Address)
+        </td>
+        <td>
+
+
+
+            @if (ViewBag.Roles.Contains("employee"))
+            {
+                @Html.ActionLink("Изменить", "Edit", new { id = item.ID }) 
+                <b> | </b>
+                @Html.ActionLink("Удалить", "Delete", new { id = item.ID })<b> | </b>
+
+            }
+
+
+            @Html.ActionLink("Подробнее", "Details", new { id = item.ID }) 
+
+        </td>
+    </tr>
+}
+
+</table>

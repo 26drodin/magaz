@@ -1,0 +1,63 @@
+﻿@model IEnumerable<CodeFirst.Product>
+
+
+<table class="table">
+    <tr>
+        <th>
+           
+        </th>
+        <th>
+           
+            @Html.DisplayNameFor(model => model.Name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Price)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+
+
+
+            @{
+                string imgsrc;
+                if (item.Picture != null)
+                {
+                    var base64 = Convert.ToBase64String(item.Picture);
+
+                    imgsrc = string.Format("data:image/png;base64,{0}", base64);
+                }
+                else { imgsrc = "https://pp.userapi.com/c831308/v831308450/3eb44/rasu8ictmE4.jpg"; }}
+
+            <a href="~/Product/Details/@item.ID"><img src='@imgsrc' style="max-width:100px;max-height:100px" /> </a>
+
+
+
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Name)
+
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Price)
+
+
+
+        </td>
+
+
+        @if (ViewBag.roles.Contains("employee"))
+        {
+            <td>
+                @Html.ActionLink("Изменить", "Edit", new { prod_id = item.ID }) |
+                @Html.ActionLink("Удалить", "Delete", new { prod_id = item.ID })
+            </td>
+        }
+        
+    </tr>
+}
+
+</table>

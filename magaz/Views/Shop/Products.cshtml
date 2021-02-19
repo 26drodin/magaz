@@ -1,0 +1,43 @@
+﻿@model IEnumerable<CodeFirst.Shop_Prod>
+
+@{
+    ViewBag.Title = "Товары";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Товары в @ViewBag.Shop.Name </h2>
+
+
+<table class="table">
+    <tr>
+        <th>
+            Товар
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Quantity)
+        </th>
+        <th>
+
+        </th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+
+            <td>
+                @Html.DisplayFor(modelItem => item.Product.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modeLItem => item.Quantity)
+            </td>
+            <td>
+                @Html.ActionLink("Изменить", "Edit_Prod", new { shop_prod_id = item.ID }) |
+                @Html.ActionLink("Подробнее", "Details", "Product", new { id = item.Product.ID },new { }) |
+    
+            </td>
+        </tr>
+    }
+   
+</table>
+

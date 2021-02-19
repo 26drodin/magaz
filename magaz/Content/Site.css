@@ -1,0 +1,163 @@
+﻿body {
+    padding-top: 50px;
+    padding-bottom: 20px;
+}
+
+/* Set padding to keep content from hitting the edges */
+.body-content {
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
+/* Override the default bootstrap behavior where horizontal description lists 
+   will truncate terms that are too long to fit in the left column 
+*/
+.dl-horizontal dt {
+    white-space: normal;
+}
+
+/* Set width on the form input elements since they're 100% wide by default */
+input,
+select,
+textarea {
+    max-width: 280px;
+}
+
+.navbar-brand > img {
+  margin-top:-10px;
+}
+.navbar > .container .navbar-brand, .navbar > .container-fluid .navbar-brand {
+color:orange; 
+}
+#sidebar-wrapper {
+    z-index: 1000;
+    width: 160px;
+    height: 100%;
+    margin-left: 0px;
+    overflow-y: auto;
+    overflow-x: visible;
+    background: #1a1a1a;
+    -webkit-transition: all 0.5s ease;
+    -moz-transition: all 0.5s ease;
+    -o-transition: all 0.5s ease;
+    transition: all 0.5s ease;
+margin-top:50px;
+
+}
+.nav.sidebar-nav > li > a {
+    color: orange
+}
+.info-top {
+    margin-top:15px;
+    margin-bottom:15px;
+    padding-left:15px;
+    padding-right:15px
+}
+
+.col-md-12>img{
+    position:relative;
+    width:50%
+}
+.news {
+    background-color: #c3c2c2;
+    padding-top:20px;
+    padding-bottom:20px;
+    
+}
+.jcarousel {
+    position: relative;
+    overflow: hidden;
+}
+    /* Контейнер с изображениями */
+    .jcarousel ul {
+        width: 20000em;
+        position: relative;
+        /* Optional, required in this case since it's a <ul> element */
+        list-style: none;
+        margin: 0;
+        padding: 0;
+    }
+    /* Отдельный элемент списка */
+    .jcarousel li {
+        float: left;
+    }
+.btn1 {
+color:orange;
+}
+/* Always set the map height explicitly to define the size of the div
+       * element that contains the map. */
+#map {
+    height: 400px;
+    width: 100%;
+    float: right;
+    
+}
+#btn-login {
+    background-color: gray;
+    height: 37px;
+    width: 100px;
+    padding-top: 7px;
+    top: 7px;
+    color: #1a1a1a;
+}
+#btn-login:hover {
+    background-color: orange;
+    height: 37px;
+    width: 100px;
+    padding-top: 7px;
+    top: 7px;
+    color: #1a1a1a;
+}
+
+#btn-cab {
+    background-color:orange;
+    height:37px;
+    width:100px;
+    padding-top: 7px;
+    top: 7px;
+    color:#1a1a1a;
+}
+.login-modal {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 600px;
+    max-width: 100%;
+    height: 400px;
+    max-height: 100%;
+    overflow:auto;
+    visibility:visible;
+    background-color:gray;
+       z-index:9999;
+       display:none;
+}
+.login-modal-show {
+    display:block;
+    animation-name:bounce;
+    animation-duration:0.6s;
+}
+.login-modal-guts {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    /* отступы */
+    padding: 20px 50px 20px 20px;
+    /* разрешим скролить */
+    overflow: auto;
+}
+@keyframes bounce {
+
+    0%  {transform:translateY(-200%)translateX(-50%)}
+    70% {transform: translateY(-45%)translateX(-50%)  }
+    90% {transform: translateY(-55%)translateX(-50%) }
+    100% {transform: translateY(-50%) translateX(-50%) }
+}
+.reviews-hr {
+    height: 1px;
+    border: none;
+    color: #a2a0a0;
+    background-color: #c5c3c3;
+}

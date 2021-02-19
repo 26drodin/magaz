@@ -1,0 +1,13 @@
+﻿
+@model IEnumerable<CodeFirst.Prop_Cat>
+
+<div id="propresults">
+   
+    <ul class="list-group">
+        @foreach (var item in Model)
+        {
+            <li >@item.Name   @Html.ActionLink("Удалить","DeleteProp",new { id=item.ID,cat_id=item.Category.ID})  </li>  
+        }
+    </ul>
+</div>
+

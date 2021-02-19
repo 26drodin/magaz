@@ -1,0 +1,49 @@
+﻿@model CodeFirst.Order
+@{
+    ViewBag.Title = "Подтвердите заказ";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Подтвердите заказ</h2>
+
+@using (Html.BeginForm("MakeOrder", "Account", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+
+    @Html.HiddenFor(model => model.ID)
+    @Html.HiddenFor(model => model.Product)
+    @Html.HiddenFor(model => model.Quantity)
+    @Html.HiddenFor(model => model.Shop)
+    @Html.HiddenFor(model => model.Status)
+    @Html.HiddenFor(model => model.Date)
+    @Html.HiddenFor(model => model.Account)
+
+    @Html.AntiForgeryToken()
+
+    @Html.LabelFor(model => model.ID)
+    @Html.DisplayFor(model => model.ID)
+
+    @Html.LabelFor(model => model.Product.Name)
+    @Html.DisplayFor(model => model.Product.Name)
+
+    @Html.LabelFor(model => model.Product.Price)
+    @Html.DisplayFor(model => model.Product.Price)
+
+    @Html.LabelFor(model => model.Shop.Name)
+    @Html.DisplayFor(model => model.Shop.Name)
+
+    @Html.LabelFor(model => model.Quantity)
+    @Html.DisplayFor(model => model.Quantity)
+
+    {
+        double a = Model.Quantity * Model.Product.Price;
+        <p>@a</p>
+     }
+    
+
+    <input type="hidden" value="1" name="i">
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <input type="submit" value="Заказать" class="btn btn-default" />
+        </div>
+    </div>
+}

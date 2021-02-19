@@ -1,0 +1,185 @@
+﻿@using CodeFirst
+@{
+    ViewBag.Title = "Магазин";
+}
+
+
+
+
+<!-- Sidebar -->
+
+<nav class="navbar navbar-inverse navbar-fixed-top" id="sidebar-wrapper" role="navigation">
+    <ul class="nav sidebar-nav">
+        <li class="dropdown">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown">Компьютеры <span class="caret"></span></a>
+            <ul class="dropdown-menu" role="menu">
+                <!--  <li class="dropdown-header">Dropdown heading</li>-->
+                <li><a href="/Product/List/1">Системные блоки</a></li>
+                <li><a href="/Product/List/2">Моноблоки</a></li>
+                <li><a href="/Product/List/3">Ноутбуки</a></li>
+                <li><a href="/Product/List/4">Планшеты</a></li>
+
+
+            </ul>
+        </li>
+        <li>
+            <a href="/Product/List/5">
+                Процессоры
+            </a>
+        </li>
+        <li>
+            <a href="/Product/List/6">Видеокарты</a>
+        </li>
+        <li>
+            <a href="/Product/List/7">Накопители</a>
+        </li>
+        <li>
+            <a href="/Product/List/8">Материнские платы</a>
+        </li>
+        <li>
+            <a href="/Product/List/9">Блоки питания</a>
+        </li>
+        <li>
+            <a href="/Product/List/10">Корпуса</a>
+        </li>
+        <li class="dropdown">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown">Перифирия <span class="caret"></span></a>
+            <ul class="dropdown-menu" role="menu">
+                <!--  <li class="dropdown-header">Dropdown heading</li>-->
+                <li><a href="/Product/List/11">Мыши</a></li>
+                <li><a href="/Product/List/12">Клавиатуры</a></li>
+                <li><a href="/Product/List/13">Геймпады</a></li>
+                <li><a href="/Product/List/14">Флешки</a></li>
+
+            </ul>
+        </li>
+        <li>
+            <a href="#">Сертификаты</a>
+        </li>
+    </ul>
+</nav>
+
+
+
+<div style="padding-left:160px">
+
+    <div class="row">
+
+
+
+        @using (@Html.BeginForm("ListAll", "Product"))
+        {
+            <p style="margin-top:20px">
+                <input type="search" name="search" placeholder="Поиск товара" class="input-group-text" style="width:80%">
+                <input type="submit" value="Найти" class="btn">
+            </p>}
+
+
+
+        <h1>Популярное</h1>
+        <div class=" content">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="owl-carousel owl-theme">
+
+                        @foreach (Product item in ViewBag.Best)
+                        {
+                            <div>
+
+
+                                @{
+                                    string imgsrc;
+                                    if (item.Picture != null)
+                                    {
+                                        var base64 = Convert.ToBase64String(item.Picture);
+
+                                        imgsrc = string.Format("data:image/png;base64,{0}", base64);
+                                    }
+                                    else { imgsrc = "https://pp.userapi.com/c831308/v831308450/3eb44/rasu8ictmE4.jpg"; }}
+
+                                <a href="~/Product/Details/@item.ID">
+                                    <img src='@imgsrc' style="float:left; max-height:300px" />
+                                    @item.Name
+                                </a>
+                            </div>
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <h1>Новости</h1>
+
+
+            @foreach (var item in ViewBag.News)
+            {
+                <div class="col-md-12 news">
+                    <h2>@item.Name</h2>
+                    <div class="col-md-3">
+
+                        @{
+                            string imgsrc;
+                            if (item.Picture != null)
+                            {
+                                var base64 = Convert.ToBase64String(item.Picture);
+
+                                imgsrc = string.Format("data:image/png;base64,{0}", base64);
+                            }
+                            else { imgsrc = "https://pp.userapi.com/c831308/v831308450/3eb44/rasu8ictmE4.jpg"; }}
+
+                        <img src='@imgsrc' style="max-width:100%;max-height:200px;float:left" />
+                    </div>
+
+                    <p style="text-align:justify">
+
+
+                        @Html.Raw(item.Text.Substring(0, 370))
+
+                    </p>
+                    <p><a class="btn btn-default " href="~/News/Details/@item.ID">Читать далее&raquo;</a></p>
+                </div>
+            }
+
+
+            <p>@Html.ActionLink("Все новости", "List", "News", new { }, new { })</p>
+
+        </div>
+
+        <div class="row body-content">
+            <hr />
+            <footer>
+                <p>&copy; @DateTime.Now.Year</p>
+            </footer>
+        </div>
+    </div>
+
+</div>
+
+
+<script>
+
+
+    $(function () {
+        $(".owl-carousel").owlCarousel({
+            nav: true,
+            loop: true,
+            responsiveClass: true,
+            responsive: {
+                0: {
+                    items: 1,
+                },
+                600: {
+                    items: 2,
+                },
+                1000: {
+                    items: 3,
+                }
+            }
+        });
+    });
+
+
+</script>
+
+

@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+<head>
+ <link href="Content/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="Content/owl.carousel.css">
+  <link rel="stylesheet" href="Content/owl.theme.green.css">
+</head>
+<body>
+
+ <div class="container content">
+    <div class="row">
+        <div class="col-md-8">
+            <div class="owl-carousel owl-theme">
+                <div><img src="Content/img.png"></div>
+                <div><img src="Content/img.png"></div>
+                <div><img src="Content/img.png"></div>
+                <div><img src="Content/img.png"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <script src="Scripts/owl.carousel.js"></script>
+    <script src="Scripts/bootstrap.min.js"></script>
+	
+<script>
+
+
+$(function() {
+	$(".owl-carousel").owlCarousel({
+		nav:true,
+		loop:true,
+		responsiveClass:true,
+		responsive:{
+        0:{
+            items:1,
+        },
+        600:{
+            items:2,
+        },
+        1000:{
+            items:3,
+        }
+    }
+	});
+});
+	
+
+</script>
+</body>

@@ -1,0 +1,87 @@
+﻿@model CodeFirst.News
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h3> @Html.DisplayFor(model => model.Name)</h3>
+
+<div style="text-align:justify" class="row">
+
+
+    @{
+        string imgsrc;
+        if (Model.Picture != null)
+        {
+            var base64 = Convert.ToBase64String(Model.Picture);
+
+            imgsrc = string.Format("data:image/png;base64,{0}", base64);
+        }
+        else { imgsrc = "https://pp.userapi.com/c831308/v831308450/3eb44/rasu8ictmE4.jpg"; }}
+
+    <img src='@imgsrc' style="max-width:300px;max-height:300px;float:left;margin-right:10px " />
+
+
+
+
+
+
+    <hr />
+   @Html.Raw(Model.Text) 
+
+</div>
+<div class="row">
+<p>
+    <label>@Html.DisplayNameFor(model => model.Date)</label>
+
+    @Html.DisplayFor(model => model.Date)
+</p>
+    </div>
+
+
+
+
+
+<div id="results"></div>
+
+@if (!User.Identity.IsAuthenticated)
+{
+    <div style="visibility:hidden">
+
+        @Ajax.BeginForm("Comment", new AjaxOptions { UpdateTargetId = "results" })
+        {
+        <input type="text" name="text" id="text" class="form-control" />
+        @Html.HiddenFor(model => model.ID)
+        <input type="submit" value="Комментировать" id="zz" class="btn btn-default" />
+        }
+    </div>}
+else
+{
+
+    Ajax.BeginForm("Comment", new AjaxOptions { UpdateTargetId = "results" });
+    {
+        @Html.HiddenFor(model => model.ID)
+        <input type="text" name="text" id="text" class="form-control" />
+
+        <input type="submit" value="Комментировать" id="zz" class="btn btn-default" />
+    }
+}
+
+        <p>
+
+            @if (ViewBag.Roles.Contains("employee"))
+            {
+                @Html.ActionLink("Редактировать", "Edit", new { id = Model.ID }) <b>|</b>
+                @Html.ActionLink("Удалить","Delete",new { id=Model.ID})
+            }<b>|</b>
+                @Html.ActionLink("К списку новостей", "List")
+        </p>
+
+
+<script>
+    function funonload() {
+        $('#zz').click();
+    }
+    window.onload = funonload;
+</script>

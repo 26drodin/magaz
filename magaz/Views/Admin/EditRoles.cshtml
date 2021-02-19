@@ -1,0 +1,37 @@
+﻿@model CodeFirst.ApplicationUser
+@using CodeFirst
+@{
+    ViewBag.Title = "EditRoles";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Управление ролями для @Model.UserName</h2>
+
+
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    @Html.HiddenFor(model => model.Id)
+
+
+    foreach (CodeFirst.Roles item in ViewBag.Roles)
+    {
+
+        <div class="form-group">
+            <div class=" col-md-10">
+
+                <input type="checkbox" value=@item.role name="roles" @(Model.Roles.Select(i => i.role).Contains(item.role) ? "checked=\"checked\"" : "") /> @item.role <br />
+            </div>
+        </div>
+    }
+
+    <div class="form-group" >
+        <div class=" col-md-10">
+            <input type="submit" value="Сохранить" class="btn btn-default" style="margin-top:30px" />
+        </div>
+    </div>
+
+
+}

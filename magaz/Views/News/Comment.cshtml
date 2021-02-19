@@ -1,0 +1,45 @@
+﻿@model IEnumerable<CodeFirst.Comment>
+
+
+
+
+    @foreach (var item in Model)
+    {
+
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="row">
+            <h4 style="height:30px">
+                @{
+                    string imgsrc;
+                    if (item.Account.Picture != null)
+                    {
+                        var base64 = Convert.ToBase64String(item.Account.Picture);
+
+                        imgsrc = string.Format("data:image/png;base64,{0}", base64);
+                    }
+                    else { imgsrc = "https://pp.userapi.com/c831308/v831308450/3eb44/rasu8ictmE4.jpg"; }}
+                <img src='@imgsrc' style="float:left; height:50px; width:50px; margin-right:10px" />
+              
+                    @item.Account.UserName @if (item.Account.Roles.Select(i => i.role).Contains("admin"))
+                    {<b style="color:orange">Администратор</b>}
+                
+            </h4>
+        </div>
+
+        <div class="row">
+            <p style="padding-left:60px">  @item.Text</p>
+        </div>
+        <hr class="reviews-hr" />
+    </div>
+</div>
+
+
+
+}
+
+
+
+
+

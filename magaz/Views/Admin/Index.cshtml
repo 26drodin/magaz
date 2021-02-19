@@ -1,0 +1,44 @@
+﻿@model IEnumerable<CodeFirst.ApplicationUser>
+
+@{
+    ViewBag.Title = "Администрирование";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Администрирование</h2>
+
+
+<table class="table">
+    <tr>
+        <th>
+           Имя пользователя
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Email)
+        </th>
+        <th>
+           Номер телефона
+        </th>       
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr >
+        <td>
+            @Html.DisplayFor(modelItem => item.UserName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Email)
+        </td>
+       
+        <td>
+            @Html.DisplayFor(modelItem => item.PhoneNumber)
+        </td>     
+        <td>
+            @Html.ActionLink("Роли", "EditRoles", new { user_id = item.Id }) |
+            @Html.ActionLink("Удалить пользователя", "Delete", new { user_id = item.Id })
+        </td>
+    </tr>
+}
+
+</table>

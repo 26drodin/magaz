@@ -1,0 +1,67 @@
+﻿
+
+@{
+    /**/
+
+    ViewBag.Title = @ViewBag.Category.Name;
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>@ViewBag.Category.Name</h2>
+
+@if (ViewBag.roles.Contains("employee"))
+{
+<p>
+    @Html.ActionLink("Добавить товар", "Create")
+</p>
+}
+
+
+@using (Ajax.BeginForm("AjaxList", new AjaxOptions { UpdateTargetId = "results" }))
+{  
+    <input type="hidden" name="cat_id" value=@ViewBag.Category.ID>
+    <input type="search" name="search" placeholder="Поиск товара" class="input-group-text" style="width:80%">
+    <input type="submit" value="Найти" class="btn" id="btn-list">
+}
+
+<div class="row" style="margin-top:10px">
+    <div class="col-md-9">
+        <div id="results"></div>
+
+    </div>
+
+</div>
+
+
+
+<div class="col-md-2" style="color:orange; background-color:black; height:100%; position:fixed; right:0px;top:50px">
+    @using (Ajax.BeginForm("AjaxListFiltered", new AjaxOptions { UpdateTargetId = "results" }))
+    {
+        <input type="hidden" name="cat_id" value=@ViewBag.Category.ID>
+        for (int i = 0; i < ViewBag.Values.Count; i++)
+        {
+            <h4> @ViewBag.Names[i]</h4>
+            foreach (var item in ViewBag.Values[i])
+            {
+                <input type="checkbox" name="@("MyDictionary[" + ViewBag.Names[i] + "]")" value="@(item)">
+                <a>@item</a>
+            }
+
+
+
+        }
+        <p style="margin-top:20px">
+        <input type="submit" value="Показать" class="btn btn-default">
+            </p>
+    }
+
+</div>
+<script>
+
+    function funonload() {
+        $('#btn-list').click()
+    }
+    window.onload = funonload;
+
+
+</script>
